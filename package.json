@@ -1,6 +1,6 @@
 {
     "name": "fetch-default",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "description": "global settings fetch",
     "main": "index.js",
     "scripts": {
