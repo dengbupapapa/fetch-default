@@ -1,4 +1,4 @@
-## fetch-default(1.0.6)
+## fetch-default(1.0.7)
 
 #### 为fetch添加全局默认属性
 
