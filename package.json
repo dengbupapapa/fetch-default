@@ -1,7 +1,7 @@
 {
     "name": "fetch-default",
-    "version": "1.0.7",
-    "description": "global settings fetch",
+    "version": "1.0.9",
+    "description": "Add global default properties for the web fetch",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
         "url": "git+https://github.com/dengbupapapa/fetch-default.git"
     },
     "keywords": [
-        "fetch-global-default"
+        "fetch、web、global、default"
     ],
     "author": "dengbupapapa",
     "license": "ISC",
