@@ -1,18 +1,18 @@
 ## fetch-default
 
-###### 为web端fetch添加全局默认属性（Add global default properties for the web fetch）
+###### Add global default properties for the web fetch
 
-### 安装(install)
+### install
 	npm i fetch-default --save
 
-### 使用(use)
+### use
 
 	require('fetch-default');
 	
 	//es
 	import 'fetch-default';
 
-### 通过default为所有请求添加前缀
+### default setting uri prefix
 
 
 		fetch.default({
@@ -27,20 +27,20 @@
     		.then((response) => response.json())
     		.then((json) => console.log(json));
     		
-### 通过default设置默认optoin
+### default setting optoin
 
 
-		fetch.default({ 
+	fetch.default({ 
         method: 'GET',
        	headers: myHeaders,
        	mode: 'cors',
        	cache: 'default' 
        	...
     });
-		/*
-		默认所有请求都配置
-      method: 'GET',
-			headers: myHeaders,
+	/*
+		//default
+      	method: 'GET',
+		headers: myHeaders,
      	mode: 'cors',
      	cache: 'default'
      	...
@@ -52,8 +52,32 @@
     		.then((response) => response.json())
     		.then((json) => console.log(json));
     		
-    		
-    		
+### default setting dataFilter
+ 		
+	fetch.default({ 
+		dataFilter(response) {
+
+        	if (!response.ok) {
+        		//if you use fetch-abort (https://www.npmjs.com/package/fetch-abort)
+        		this.abort()
+            	message.error(`${response.status}\n${response.statusText}`);
+        	}
+
+        	return response.json();
+
+    	}
+    });
+    
+### default setting fail
+
+	fetch.default({ 
+		fail(e) {
+			//if you use fetch-abort (https://www.npmjs.com/package/fetch-abort)
+			this.abort()
+        	message.error(e.toString());
+    	}
+    });
+        		
 ## Community
 
 [github](https://github.com/dengbupapapa/fetch-default) 
