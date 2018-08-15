@@ -51,7 +51,15 @@
     		})
     		.then((response) => response.json())
     		.then((json) => console.log(json));
-    		
+
+### default setting beforeSend
+ 		
+	fetch.default({ 
+		beforeSend() {
+			if(example)this.uri=this.uri+'/example';
+    	}
+    });
+
 ### default setting dataFilter
  		
 	fetch.default({ 

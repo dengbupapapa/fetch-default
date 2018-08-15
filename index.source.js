@@ -1,14 +1,25 @@
 (function(win) {
 
     let oldFetch = fetch;
-    let oldFetchPromise;
 
     win.fetch = (uri, ...rest) => {
 
-        oldFetchPromise = oldFetch(uriPrefix ? (uriPrefix + uri) : uri, Object.assign({}, opt, ...rest));
+        //整合所有opts
+        let allOpts = Object.assign({}, opt, ...rest, {
+            uri: uriPrefix ? (uriPrefix + uri) : uri
+        })
 
-        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response, fail);
-        if (dataFilter) oldFetchPromise = oldFetchPromise.then(dataFilter);
+        //请求前callback
+        if (beforeSend) {
+            beforeSend.call(allOpts, Object.assign({}, opt, ...rest));
+        }
+
+        let oldFetchPromise = oldFetch(allOpts.uri, allOpts);
+
+        let initFetchPromise = oldFetchPromise;
+
+        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response, fail.bind(initFetchPromise));
+        if (dataFilter) oldFetchPromise = oldFetchPromise.then(dataFilter.bind(initFetchPromise));
 
         return oldFetchPromise;
 
@@ -18,6 +29,7 @@
     let opt = {};
     let dataFilter;
     let fail;
+    let beforeSend;
 
     fetch.default = (option = {}) => {
 
@@ -27,6 +39,7 @@
         uriPrefix = option.uriPrefix || '';
         dataFilter = option.dataFilter;
         fail = option.fail;
+        beforeSend = option.beforeSend;
 
     };
 
@@ -39,6 +52,7 @@
         if (option.uriPrefix && Object.prototype.toString.call(option.uriPrefix) !== '[object String]') throw new Error('uriPrefix is string!');
         if (option.dataFilter && typeof option.dataFilter !== 'function') throw new Error('dataFilter is function!');
         if (option.fail && typeof option.fail !== 'function') throw new Error('fail is function!');
+        if (option.beforeSend && typeof option.beforeSend !== 'function') throw new Error('beforeSend is function!');
     }
 
 })(window);
