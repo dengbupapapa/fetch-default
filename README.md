@@ -85,7 +85,55 @@
         	message.error(e.toString());
     	}
     });
-        		
+
+### A complete example
+	fetch.default({
+    	method: 'POST',
+    	headers: {
+        	'Accept': 'application/json',
+        	'Content-Type': ' application/json',
+    	},
+    	credentials: 'include',
+    	beforeSend() {
+        	//excludes serviceWorker
+        	if (!/http:\/\//.test(this.uri)&&process.env.HOME_PAGE) this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
+    	},
+    	async dataFilter(response) {
+
+        	//excludes serviceWorker request flies
+        	if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(response.url)){
+
+            	if (response.ok===false) {
+                	message.error(`${response.status}\n${response.statusText}`);
+                	return {}
+            	}
+
+            	let data = await response.json();
+
+            	let {code,message:messageDes,messageBody} = data;
+
+            	//not login
+            	// if(code === 5000){
+            	//     message.error(messageDes);
+            	//     store.dispatch(actiontor.loginFlag(false));
+            	// }
+
+            	if(code !== '9000'){
+                	message.error(messageDes);
+            	}
+
+            	return data;
+
+        	}else{
+            	return response
+        	}
+
+    	},
+    	fail(e) {
+        	message.error(e.toString());
+        	return e
+    	}
+	});        		
 ## Community
 
 [github](https://github.com/dengbupapapa/fetch-default) 
