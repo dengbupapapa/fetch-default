@@ -11,21 +11,6 @@
 	
 	//es
 	import 'fetch-default';
-
-### default setting uri prefix
-
-
-		fetch.default({
-    		uriPrefix: '/api'
-		});
-	
-		//default request /api/async/get
-		
-		fetch('/async/get', {
-        	method: 'GET'
-    		})
-    		.then((response) => response.json())
-    		.then((json) => console.log(json));
     		
 ### default setting optoin
 
@@ -47,7 +32,7 @@
     */
         
 		fetch('/async/get', {
-        	method: 'POST'//覆盖默认设置后请求为post（covering）
+        	method: 'POST'//covering to post
     		})
     		.then((response) => response.json())
     		.then((json) => console.log(json));
