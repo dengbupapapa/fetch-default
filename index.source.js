@@ -3,7 +3,6 @@
     let oldFetch = fetch;
 
     win.fetch = (uri, ...rest) => {
-
         //整合所有opts
         let allOpts = Object.assign({}, opt, ...rest, {
             uri: uriPrefix ? (uriPrefix + uri) : uri
@@ -18,8 +17,8 @@
 
         let initFetchPromise = oldFetchPromise;
 
-        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response, fail.bind(initFetchPromise));
-        if (dataFilter) oldFetchPromise = oldFetchPromise.then(dataFilter.bind(initFetchPromise));
+        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response,(reject) => fail.call(oldFetchPromise,reject));
+        if (dataFilter) oldFetchPromise = oldFetchPromise.then((response) => dataFilter.call(oldFetchPromise,response));
 
         return oldFetchPromise;
 

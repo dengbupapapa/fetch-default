@@ -25,8 +25,12 @@
 
         if (fail) oldFetchPromise = oldFetchPromise.then(function (response) {
             return response;
-        }, fail.bind(initFetchPromise));
-        if (dataFilter) oldFetchPromise = oldFetchPromise.then(dataFilter.bind(initFetchPromise));
+        }, function (reject) {
+            return fail.call(oldFetchPromise, reject);
+        });
+        if (dataFilter) oldFetchPromise = oldFetchPromise.then(function (response) {
+            return dataFilter.call(oldFetchPromise, response);
+        });
 
         return oldFetchPromise;
     };
