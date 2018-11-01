@@ -1,6 +1,6 @@
 {
     "name": "fetch-default",
-    "version": "1.0.15",
+    "version": "1.0.17",
     "description": "Add global default properties for the web fetch",
     "main": "index.js",
     "scripts": {
