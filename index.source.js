@@ -1,3 +1,5 @@
+import 'fetch-polyfill';
+
 (function(win) {
 
     let oldFetch = fetch;

@@ -1,5 +1,7 @@
 'use strict';
 
+require('fetch-polyfill');
+
 (function (win) {
 
     var oldFetch = fetch;

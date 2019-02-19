@@ -1,6 +1,6 @@
 {
     "name": "fetch-default",
-    "version": "1.0.17",
+    "version": "1.0.18",
     "description": "Add global default properties for the web fetch",
     "main": "index.js",
     "scripts": {
@@ -23,5 +23,8 @@
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-stage-0": "^6.24.1"
+    },
+    "dependencies": {
+        "fetch-polyfill": "^0.8.2"
     }
 }
